@@ -61,29 +61,20 @@
       cursor: help;
     }
 
-    /* Hiệu ứng mượt mà: khi cuộn xuống dưới, chỉ stick lại phần tiến độ hồ sơ */
-    #headerTopRow {
-      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, margin 0.3s ease;
-      max-height: 200px;
-    }
-
+    /* Hiệu ứng thu gọn header chống nhấp nhả: chuyển đổi dứt khoát không gây co giật layout */
     header.is-scrolled #headerTopRow {
-      max-height: 0;
-      opacity: 0;
-      margin-bottom: 0;
-      overflow: hidden;
-      pointer-events: none;
+      display: none !important;
     }
 
     header.is-scrolled #progressSection {
-      margin-top: 0;
-      padding-top: 0;
-      border-top-color: transparent;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      border-top-width: 0 !important;
     }
 
     header.is-scrolled .header-inner-wrap {
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
     }
   </style>
 </head>
@@ -91,11 +82,11 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
   <!-- Thanh tiêu đề và tiến độ hoàn thành -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs transition-all duration-300">
-    <div class="header-inner-wrap max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 transition-all duration-300">
+  <header id="pageHeader" class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs transition-colors duration-150">
+    <div class="header-inner-wrap max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
       
       <!-- Cụm tiêu đề và nút thao tác (/html/body/header/div/div[1]) -->
-      <div id="headerTopRow" class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 overflow-hidden">
+      <div id="headerTopRow" class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 class="text-xl sm:text-2xl font-bold text-slate-900">Kiểm Tra Hồ Sơ Đồ Án Phần Mềm
           </h1>
@@ -130,7 +121,7 @@
       </div>
 
       <!-- Thanh tiến độ tổng quan (/html/body/header/div/div[2]) - Sẽ stick cố định khi cuộn xuống -->
-      <div id="progressSection" class="mt-4 pt-3 border-t border-slate-100 transition-all duration-300">
+      <div id="progressSection" class="mt-4 pt-3 border-t border-slate-100">
         <div class="flex items-center justify-between text-xs font-semibold mb-1">
           <span class="text-slate-600">Tiến độ chuẩn bị hồ sơ</span>
           <span id="progressText" class="text-indigo-600">0 / 0 mục (0%)</span>
@@ -1093,22 +1084,35 @@
     // Quản lý trạng thái cố định thanh tiến độ khi cuộn và nút Go Top
     function initScrollInteractions() {
       const header = document.querySelector('header');
+      const topRow = document.getElementById('headerTopRow');
       const btnGoTop = document.getElementById('btnGoTop');
+      let topRowHeight = topRow ? topRow.offsetHeight : 70;
+      let isScrolled = false;
       let ticking = false;
+
+      // Cập nhật lại chiều cao tiêu đề khi thay đổi kích thước cửa sổ
+      window.addEventListener('resize', () => {
+        if (topRow && !isScrolled) {
+          topRowHeight = topRow.offsetHeight;
+        }
+      });
 
       function onScroll() {
         const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-        // Khi cuộn xuống: thu gọn header, chỉ stick lại phần tiến độ hồ sơ (/html/body/header/div/div[2])
-        // Khi ở đầu trang: hiển thị đầy đủ như cũ
-        if (scrollY > 40) {
-          if (header && !header.classList.contains('is-scrolled')) {
-            header.classList.add('is-scrolled');
-          }
-        } else {
-          if (header && header.classList.contains('is-scrolled')) {
-            header.classList.remove('is-scrolled');
-          }
+        // Dùng cơ chế Hysteresis (ngưỡng trễ) kết hợp bù chiều cao:
+        // - Khi cuộn xuống: Chỉ thu gọn khi đã cuộn qua hẳn phần tiêu đề (> 85px)
+        // - Khi cuộn lên: Chỉ mở rộng lại khi đã cuộn hẳn về gần đỉnh (< 20px)
+        // Giúp triệt tiêu 100% hiện tượng nhấp nhả dao động lưng chừng
+        if (!isScrolled && scrollY > 85) {
+          isScrolled = true;
+          if (topRow) topRowHeight = topRow.offsetHeight;
+          header.classList.add('is-scrolled');
+          header.style.marginBottom = (topRowHeight + 16) + 'px';
+        } else if (isScrolled && scrollY < 20) {
+          isScrolled = false;
+          header.classList.remove('is-scrolled');
+          header.style.marginBottom = '0px';
         }
 
         // Điều khiển hiển thị nút Go Top
