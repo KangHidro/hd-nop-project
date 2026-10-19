@@ -61,6 +61,13 @@
       cursor: help;
     }
 
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     /* Hiệu ứng thu gọn header chống nhấp nhả: chuyển đổi dứt khoát không gây co giật layout */
     header.is-scrolled #headerTopRow {
       display: none !important;
@@ -752,6 +759,47 @@
       }
     }
 
+    // Quản lý trạng thái mở rộng mô tả các thẻ (Xem thêm / Thu gọn) inline giống Facebook
+    const expandedDescs = new Set();
+    const DESC_MAX_LENGTH = 100;
+
+    function getTruncatedDesc(text, maxLen = DESC_MAX_LENGTH) {
+      if (text.length <= maxLen) return text;
+      let truncated = text.slice(0, maxLen);
+      const lastSpace = truncated.lastIndexOf(' ');
+      if (lastSpace > maxLen * 0.7) {
+        truncated = truncated.slice(0, lastSpace);
+      }
+      return truncated.trim();
+    }
+
+    function toggleDesc(id, event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      const item = itemsData.find(i => i.id === id);
+      if (!item) return;
+
+      const textSpan = document.getElementById(`desc-text-${id}`);
+      const btn = document.getElementById(`btn-desc-${id}`);
+      if (!textSpan || !btn) return;
+
+      const isExpanded = expandedDescs.has(id);
+      if (isExpanded) {
+        expandedDescs.delete(id);
+        const truncated = getTruncatedDesc(item.desc);
+        textSpan.innerText = truncated + '... ';
+        btn.querySelector('span').innerText = 'Xem thêm';
+        btn.classList.remove('ml-1');
+      } else {
+        expandedDescs.add(id);
+        textSpan.innerText = item.desc + ' ';
+        btn.querySelector('span').innerText = 'Thu gọn';
+        btn.classList.add('ml-1');
+      }
+    }
+
     // Vẽ danh sách thẻ chi tiết bên cột phải
     function renderCards() {
       const container = document.getElementById('cardsContainer');
@@ -780,6 +828,10 @@
 
       filteredItems.forEach(item => {
         const isChecked = !!appState.checkedItems[item.id];
+        const isDescExpanded = expandedDescs.has(item.id);
+        const isLong = item.desc.length > DESC_MAX_LENGTH;
+        const truncatedText = isLong ? getTruncatedDesc(item.desc) : item.desc;
+        const currentText = isDescExpanded ? (item.desc + ' ') : (isLong ? (truncatedText + '... ') : item.desc);
         const card = document.createElement('div');
         card.id = `card-${item.id}`;
         card.className = `bg-white rounded-xl border ${isChecked ? 'border-indigo-300 ring-1 ring-indigo-100' : 'border-slate-200'} shadow-sm transition-all overflow-hidden`;
@@ -847,7 +899,13 @@
                   </span>
                 ` : ''}
               </div>
-              <p class="text-xs text-slate-500 line-clamp-2">${item.desc}</p>
+              <p id="desc-${item.id}" class="text-xs text-slate-500 leading-relaxed">
+                <span id="desc-text-${item.id}">${currentText}</span>${isLong ? `
+                <button type="button" id="btn-desc-${item.id}" onclick="toggleDesc('${item.id}', event)"
+                  class="font-semibold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer focus:outline-hidden select-none inline-flex items-center gap-0.5 ${isDescExpanded ? 'ml-1' : ''}">
+                  <span>${isDescExpanded ? 'Thu gọn' : 'Xem thêm'}</span>
+                </button>` : ''}
+              </p>
             </div>
 
             <svg id="icon-${item.id}" class="w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -972,7 +1030,7 @@
 
     // Xử lý mở hoặc thu gọn Accordion
     function toggleAccordion(id, event) {
-      if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'button') return;
+      if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
       const body = document.getElementById(`body-${id}`);
       const icon = document.getElementById(`icon-${id}`);
       if (!body) return;
