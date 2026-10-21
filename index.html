@@ -15,18 +15,18 @@
   <!-- Hàm nạp dự phòng và tự động kích hoạt biên dịch CSS -->
   <script>
     function kichHoatTailwindDuPhong() {
-      if (window.tailwind) return;
+      if(window.tailwind) return;
 
-      const script = document.createElement('script');
-      script.src = './tailwind.min.js';
-      script.async = false;
+      const script=document.createElement('script');
+      script.src='./tailwind.min.js';
+      script.async=false;
 
-      script.onload = () => {
+      script.onload=() => {
         // Kích hoạt nhẹ một thuộc tính trên thẻ html để MutationObserver của Tailwind quét CSS ngay
-        document.documentElement.setAttribute('data-tw-active', 'true');
+        document.documentElement.setAttribute('data-tw-active','true');
 
         // Gọi lại hàm vẽ danh sách thẻ nếu hàm đã sẵn sàng
-        if (typeof renderCards === 'function') {
+        if(typeof renderCards==='function') {
           renderCards();
         }
       };
@@ -41,10 +41,10 @@
   <!-- Dự phòng trường hợp kết nối bị treo lâu mà không phản hồi mã lỗi onerror -->
   <script>
     setTimeout(() => {
-      if (!window.tailwind) {
+      if(!window.tailwind) {
         kichHoatTailwindDuPhong();
       }
-    }, 1200);
+    },1200);
   </script>
 
   <style>
@@ -89,9 +89,10 @@
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
   <!-- Thanh tiêu đề và tiến độ hoàn thành -->
-  <header id="pageHeader" class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs transition-colors duration-150">
+  <header id="pageHeader"
+    class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs transition-colors duration-150">
     <div class="header-inner-wrap max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-      
+
       <!-- Cụm tiêu đề và nút thao tác (/html/body/header/div/div[1]) -->
       <div id="headerTopRow" class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
@@ -134,8 +135,8 @@
           <span id="progressText" class="text-indigo-600">0 / 0 mục (0%)</span>
         </div>
         <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-          <div id="progressBar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300"
-            style="width: 0%"></div>
+          <div id="progressBar" class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%">
+          </div>
         </div>
       </div>
     </div>
@@ -204,8 +205,7 @@
       class="bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-transparent p-4 sm:p-5 rounded-xl border border-amber-300/80 mb-6 shadow-sm transition-all duration-300">
 
       <!-- Thanh thu gọn hiển thị khi tạm ẩn trong 7 ngày -->
-      <div id="noticeCollapsedBar"
-        class="hidden flex items-center justify-between gap-3 select-none">
+      <div id="noticeCollapsedBar" class="hidden flex items-center justify-between gap-3 select-none">
         <div class="flex items-center gap-2 text-xs text-amber-900">
           <span class="p-1 bg-amber-500 text-white rounded shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -217,8 +217,7 @@
         </div>
         <button type="button" onclick="restoreImportantNotice()"
           class="px-2.5 py-1 text-xs font-semibold text-amber-900 bg-white hover:bg-amber-100 border border-amber-300 rounded-md transition shadow-2xs flex items-center gap-1 cursor-pointer">
-          <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -244,8 +243,7 @@
             <button type="button" id="btnDismissNotice" onclick="dismissImportantNotice(7)"
               class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-amber-900 bg-amber-100/90 hover:bg-amber-200 border border-amber-300 rounded-lg transition shadow-2xs shrink-0 cursor-pointer"
               title="Tạm ẩn thông báo này trong 7 ngày">
-              <svg class="w-3.5 h-3.5 text-amber-800" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
               </svg>
@@ -274,8 +272,8 @@
               <span class="text-[11px] font-bold text-amber-800 block">Báo cáo tiến độ (2
                 tuần/lần)</span>
               <span class="text-[11px] text-slate-500 block mt-0.5">Tối thiểu 2 tuần 1 lần với GVHD,
-                dưới 0.5 lần/2 tuần sẽ bị trừ điểm (G2). <strong
-                  class="text-amber-900 block mt-0.5 font-semibold">Lưu ý: Báo cáo trên trang
+                dưới 0.5 lần/2 tuần sẽ bị trừ điểm (G2). <strong class="text-amber-900 block mt-0.5 font-semibold">Lưu
+                  ý: Báo cáo trên trang
                   Project của Khoa vẫn nộp hàng tuần.</strong></span>
             </div>
             <div class="bg-white p-2.5 rounded-lg border border-amber-200 shadow-2xs">
@@ -309,14 +307,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
       <!-- Cột trái - Cây thư mục nộp bài chuẩn -->
-      <div
-        class="lg:col-span-4 bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-sm lg:sticky lg:top-28">
+      <div class="lg:col-span-4 bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-sm lg:sticky lg:top-28">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div class="flex items-center gap-2 cursor-pointer lg:cursor-default"
-            onclick="toggleMobileTree()">
+          <div class="flex items-center gap-2 cursor-pointer lg:cursor-default" onclick="toggleMobileTree()">
             <h2 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
               </svg>
@@ -333,8 +328,7 @@
               title="Ẩn/Hiện cây thư mục trên mobile">
               <svg id="iconTreeMobile" class="w-4 h-4 transition-transform duration-200" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M19 9l-7 7-7-7" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
@@ -364,8 +358,7 @@
             <button type="button" id="btnCollapseAll" onclick="collapseAllCards()"
               class="px-2.5 py-1 text-xs font-medium text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded transition flex items-center gap-1.5 shadow-2xs cursor-pointer">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M5 15l7-7 7 7" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
               </svg>
               <span>Thu gọn tất cả</span>
             </button>
@@ -381,7 +374,7 @@
 
   <script>
     // Dữ liệu toàn bộ các hạng mục nộp bài - Đã sắp xếp theo trình tự thời gian: Đầu kỳ -> Giữa kỳ -> Cuối kỳ
-    const itemsData = [
+    const itemsData=[
       // ================= GIAI ĐOẠN 1: ĐẦU KỲ (BƯỚC 1-2) =================
       {
         id: 'survey_evidence',
@@ -394,7 +387,7 @@
         blockingTag: 'Tối đa Mức 2 (4.0-5.5đ) nếu chỉ tự phân tích chủ quan',
         desc: 'Biên bản phỏng vấn tối thiểu 3 bên liên quan thực tế hoặc dữ liệu >= 30 phiếu khảo sát. Chân dung người dùng mục tiêu, so sánh với >= 3 giải pháp hiện có.',
         terms: [
-          { key: 'Bên liên quan (Stakeholder)', text: 'Khách hàng, người dùng cuối, quản lý hoặc chuyên gia am hiểu bài toán thực tế.' }
+          {key: 'Bên liên quan (Stakeholder)',text: 'Khách hàng, người dùng cuối, quản lý hoặc chuyên gia am hiểu bài toán thực tế.'}
         ],
         template: `# BÁO CÁO KHẢO SÁT THỰC TIỄN VÀ SO SÁNH GIẢI PHÁP\n\n## 1. Dữ liệu khảo sát thực tế\n- Số bên liên quan đã phỏng vấn trực tiếp: 3 người (kèm biên bản phỏng vấn bên dưới).\n- Số phiếu khảo sát thu về: 35 phiếu hợp lệ.\n\n## 2. Bảng so sánh với 3 giải pháp hiện có trên thị trường\n| Tiêu chí so sánh | Phần mềm A | Phần mềm B | Hệ thống của đề tài |\n|---|---|---|---|\n| Chi phí vận hành | Rất cao | Trung bình | Miễn phí |\n| Tự động hóa kho | Không hỗ trợ | Có hỗ trợ | Tối ưu riêng theo thời gian thực |`,
         command: 'Mẫu xây dựng chân dung người dùng mục tiêu và bảng so sánh phân tích giải pháp đối thủ bằng Markdown'
@@ -410,7 +403,7 @@
         blockingTag: 'G9 - Tối đa Mức 2 nếu thiếu khối lượng',
         desc: 'Tổng hợp tên đề tài, mục tiêu, công nghệ và bảng phân công công việc chi tiết cho từng thành viên theo từng chức năng, mô-đun và trọng số đóng góp.',
         terms: [
-          { key: 'Phân công công việc', text: 'Liệt kê danh sách toàn bộ các chức năng kèm tên thành viên phụ trách chính, phụ trách phụ và tỷ lệ đóng góp rõ ràng.' }
+          {key: 'Phân công công việc',text: 'Liệt kê danh sách toàn bộ các chức năng kèm tên thành viên phụ trách chính, phụ trách phụ và tỷ lệ đóng góp rõ ràng.'}
         ],
         template: `# BẢNG PHÂN CÔNG CÔNG VIỆC VÀ DANH MỤC TÁC VỤ\n\n- Đề tài: [Tên đề tài]\n- Nhóm sinh viên: [Họ tên và MSSV]\n\n| Mã CN | Tên chức năng / Mô-đun | Người thực hiện chính | Người hỗ trợ | Trọng số | Trạng thái |\n|---|---|---|---|---|---|\n| CN01 | Thiết kế cơ sở dữ liệu | Nguyễn Văn A | Trần Văn B | 20% | Hoàn thành |\n| CN02 | Xây dựng API xác thực | Trần Văn B | Nguyễn Văn A | 20% | Hoàn thành |`,
         command: 'Hãy tạo mẫu bảng Markdown phân công công việc đồ án phần mềm gồm các cột Mã chức năng, Tên mô-đun, Mô tả công việc, Thành viên thực hiện, Trọng số đóng góp và Trạng thái hoàn thành.'
@@ -426,11 +419,11 @@
         blockingTag: 'Khớp 100% mã nguồn khi kiểm tra ngẫu nhiên',
         desc: '100% Use Case có Acceptance Criteria, Business Rules, Từ điển dữ liệu, >= 5 yêu cầu phi chức năng định lượng. Tối thiểu 4 loại sơ đồ (Mermaid hoặc PlantUML).',
         terms: [
-          { key: 'Acceptance Criteria', text: 'Điều kiện nghiệm thu rõ ràng để tính là tính năng đã hoàn tất, ví dụ như mật khẩu >= 8 ký tự, gửi mail sau 3s.' },
-          { key: 'Yêu cầu phi chức năng định lượng', text: 'Gắn con số cụ thể như thời gian phản hồi API < 200ms, chịu tải 500 người dùng đồng thời.' }
+          {key: 'Acceptance Criteria',text: 'Điều kiện nghiệm thu rõ ràng để tính là tính năng đã hoàn tất, ví dụ như mật khẩu >= 8 ký tự, gửi mail sau 3s.'},
+          {key: 'Yêu cầu phi chức năng định lượng',text: 'Gắn con số cụ thể như thời gian phản hồi API < 200ms, chịu tải 500 người dùng đồng thời.'}
         ],
-        template: `# ĐẶC TẢ YÊU CẦU VÀ THIẾT KẾ HỆ THỐNG\n\n## 1. Use Case & Acceptance Criteria\n- Use Case: Đặt hàng trực tuyến\n  - AC1: Khi giỏ hàng rỗng, nút Đặt hàng bị vô hiệu hóa.\n  - AC2: Sau khi bấm thanh toán, hệ thống khóa giữ tồn kho trong 15 phút.\n\n## 2. Sơ đồ tuần tự (Vẽ bằng Mermaid)\n\`\`\`mermaid\nsequenceDiagram\n    actor User\n    User->>OrderService: createOrder(cartId)\n    OrderService->>Database: save(order)\n    Database-->>OrderService: orderSuccess\n    OrderService-->>User: HTTP 201 Created\n\`\`\``,
-        command: 'Viết ví dụ User Story có Acceptance Criteria, từ điển dữ liệu Data Dictionary và cú pháp vẽ sơ đồ tuần tự Sequence Diagram bằng Mermaid'
+        template: `# ĐẶC TẢ YÊU CẦU VÀ THIẾT KẾ HỆ THỐNG\n\n## 1. Use Case & Acceptance Criteria\n- Use Case: Đặt hàng trực tuyến\n  - AC1: Khi giỏ hàng rỗng, nút Đặt hàng bị vô hiệu hóa.\n  - AC2: Sau khi bấm thanh toán, hệ thống khóa giữ tồn kho trong 15 phút.\n\n## 2. Sơ đồ tuần tự (Vẽ bằng Mermaid hoặc PlantUML)\n\`\`\`mermaid\nsequenceDiagram\n    actor User\n    User->>OrderService: createOrder(cartId)\n    OrderService->>Database: save(order)\n    Database-->>OrderService: orderSuccess\n    OrderService-->>User: HTTP 201 Created\n\`\`\``,
+        command: 'Viết ví dụ User Story có Acceptance Criteria, từ điển dữ liệu Data Dictionary và cú pháp vẽ sơ đồ tuần tự Sequence Diagram bằng Mermaid hoặc PlantUML'
       },
 
       // ================= GIAI ĐOẠN 2: GIỮA KỲ (BƯỚC 3) =================
@@ -445,8 +438,8 @@
         blockingTag: 'G2 - Hạ 1 mức TC2.2 và TC2.4 nếu dưới 0.5 lần/2 tuần',
         desc: 'Ghi chép lịch sử báo cáo định kỳ với GVHD tối thiểu 2 tuần 1 lần. Lưu ý: Báo cáo trên trang Project của Khoa vẫn nộp hàng tuần. Mỗi đợt ghi rõ việc đã làm, vướng mắc, kế hoạch tiếp theo và lý do thay đổi thiết kế nếu có.',
         terms: [
-          { key: 'Tần suất báo cáo GVHD', text: 'Báo cáo với GVHD tối thiểu 2 tuần 1 lần và GVHD duyệt theo chu kỳ. Lưu ý: Báo cáo trên trang Project của Khoa vẫn nộp hàng tuần.' },
-          { key: 'Quy tắc chặn G2', text: 'Tần suất báo cáo dưới 0.5 lần/2 tuần sẽ bị hạ 1 mức điểm ở cả 2 tiêu chí TC2.2 và TC2.4.' }
+          {key: 'Tần suất báo cáo GVHD',text: 'Báo cáo với GVHD tối thiểu 2 tuần 1 lần và GVHD duyệt theo chu kỳ. Lưu ý: Báo cáo trên trang Project của Khoa vẫn nộp hàng tuần.'},
+          {key: 'Quy tắc chặn G2',text: 'Tần suất báo cáo dưới 0.5 lần/2 tuần sẽ bị hạ 1 mức điểm ở cả 2 tiêu chí TC2.2 và TC2.4.'}
         ],
         template: `# SỔ THEO DÕI TIẾN ĐỘ ĐỒ ÁN (ĐỊNH KỲ 2 TUẦN / LẦN)\n> **Lưu ý quan trọng**: Báo cáo trên trang Project của Khoa vẫn nộp hàng tuần.\n\n| Đợt báo cáo | Nội dung đã hoàn thành | Vướng mắc gặp phải | Kế hoạch đợt tới | Ghi nhận thay đổi thiết kế | Xác nhận GVHD |\n|---|---|---|---|---|---|\n| Tuần 1 - 2 | Khảo sát thực tế và viết SRS | Chưa chốt quy tắc tính phí | Hoàn thiện SRS & ERD | Giữ nguyên kiến trúc | Đã duyệt |\n| Tuần 3 - 4 | Thiết kế CSDL và dựng migration | Lỗi ràng buộc khóa ngoại | Xây dựng API cốt lõi | Bổ sung bảng audit log | Đã duyệt |`,
         command: 'Mẫu bảng theo dõi và báo cáo tiến độ đồ án phần mềm định kỳ bằng Markdown'
@@ -462,10 +455,10 @@
         blockingTag: 'G1 - ĐÌNH CHỈ BẢO VỆ NẾU THIẾU',
         desc: '⚠️ ĐIỀU KIỆN TIÊN QUYẾT ĐỂ ĐƯỢC BẢO VỆ: Văn bản bắt buộc hoàn thành và chốt trước mốc 50% thời gian (tuần 7 đến 10) có đầy đủ chữ ký của SV và GVHD. Bộ môn rà soát: nếu thiếu hoặc không đạt sẽ bị đình chỉ bảo vệ ngay (Điểm chặn G1). Nội dung phải chốt: (1) Danh sách chức năng cốt lõi cam kết hoàn thành, (2) Tối thiểu 5 KPI nghiệp vụ định lượng, (3) Bảng metric kỹ thuật điều chỉnh.',
         terms: [
-          { key: 'LƯU Ý QUAN TRỌNG VỀ BƯỚC 3', text: 'Theo Rubric Mục 2 & Điểm chặn G1: Đồ án không hoàn thành Bước 3 đúng hạn (trước mốc 50% thời gian - từ tuần 7 đến 10) hoặc đề tài không rõ ràng về mục tiêu/sản phẩm/metric sẽ bị Bộ môn đánh giá KHÔNG ĐẠT và ĐÌNH CHỈ BẢO VỆ.' },
-          { key: 'Hướng dẫn chuẩn bị Bước 3', text: 'Sinh viên cần làm việc trực tiếp với GVHD để: 1. Chốt danh sách chức năng cam kết hoàn thành; 2. Thống nhất tối thiểu 5 KPI nghiệp vụ định lượng thực tế; 3. Điều chỉnh bảng metric kỹ thuật (nếu có).' },
-          { key: 'Tối thiểu 5 KPI định lượng (TC1)', text: 'Các con số đo lường giá trị thực tế mang lại cho người dùng (ví dụ: rút ngắn thời gian thao tác từ 15 phút xuống 3 phút, xử lý 100% không để âm kho, chịu tải 200 đơn/phút...). Đây là điều kiện bắt buộc để đạt Mức 5 TC1.' },
-          { key: 'Bộ metric kỹ thuật điều chỉnh (TC2.2)', text: 'Bảng chỉ tiêu kỹ thuật riêng của đề tài đã được GVHD thống nhất bằng văn bản. Ví dụ: chốt độ phủ test 50% thay vì 70% thì 50% sẽ trở thành chuẩn Mức 5 khi chấm.' }
+          {key: 'LƯU Ý QUAN TRỌNG VỀ BƯỚC 3',text: 'Theo Rubric Mục 2 & Điểm chặn G1: Đồ án không hoàn thành Bước 3 đúng hạn (trước mốc 50% thời gian - từ tuần 7 đến 10) hoặc đề tài không rõ ràng về mục tiêu/sản phẩm/metric sẽ bị Bộ môn đánh giá KHÔNG ĐẠT và ĐÌNH CHỈ BẢO VỆ.'},
+          {key: 'Hướng dẫn chuẩn bị Bước 3',text: 'Sinh viên cần làm việc trực tiếp với GVHD để: 1. Chốt danh sách chức năng cam kết hoàn thành; 2. Thống nhất tối thiểu 5 KPI nghiệp vụ định lượng thực tế; 3. Điều chỉnh bảng metric kỹ thuật (nếu có).'},
+          {key: 'Tối thiểu 5 KPI định lượng (TC1)',text: 'Các con số đo lường giá trị thực tế mang lại cho người dùng (ví dụ: rút ngắn thời gian thao tác từ 15 phút xuống 3 phút, xử lý 100% không để âm kho, chịu tải 200 đơn/phút...). Đây là điều kiện bắt buộc để đạt Mức 5 TC1.'},
+          {key: 'Bộ metric kỹ thuật điều chỉnh (TC2.2)',text: 'Bảng chỉ tiêu kỹ thuật riêng của đề tài đã được GVHD thống nhất bằng văn bản. Ví dụ: chốt độ phủ test 50% thay vì 70% thì 50% sẽ trở thành chuẩn Mức 5 khi chấm.'}
         ],
         template: `# BẢN CAM KẾT SẢN PHẨM CUỐI CÙNG VÀ BỘ METRIC ĐÁNH GIÁ (BƯỚC 3)\n> ⚠️ **CẢNH BÁO ĐIỂM CHẶN G1**: Bắt buộc hoàn thành trước mốc 50% thời gian thực hiện đồ án (Tuần 7 đến 10).\n> Đồ án thiếu văn bản này hoặc không được Bộ môn duyệt sẽ bị **ĐÌNH CHỈ BẢO VỆ (Đánh giá Không Đạt)**.\n\n## 1. Thông tin chung\n- Tên đề tài: [Tên đề tài chính thức]\n- Giảng viên hướng dẫn: [Họ và tên GVHD]\n- Nhóm sinh viên thực hiện:\n  1. [Họ tên SV 1] - MSSV: [MSSV 1] - Đóng góp: [%]\n  2. [Họ tên SV 2] - MSSV: [MSSV 2] - Đóng góp: [%]\n\n## 2. Danh sách chức năng cốt lõi cam kết hoàn thành\n- [ ] Chức năng 1: [Mô tả chi tiết luồng nghiệp vụ và kết quả đầu ra]\n- [ ] Chức năng 2: [Mô tả chi tiết luồng nghiệp vụ và kết quả đầu ra]\n- [ ] Chức năng 3: [Mô tả chi tiết luồng nghiệp vụ và kết quả đầu ra]\n- [ ] Chức năng 4: [Mô tả chi tiết luồng nghiệp vụ và kết quả đầu ra]\n- [ ] Chức năng 5: [Mô tả chi tiết luồng nghiệp vụ và kết quả đầu ra]\n\n## 3. Danh mục tối thiểu 5 KPI nghiệp vụ định lượng (Bắt buộc cho Mức 5 TC1)\n1. KPI 1: Rút ngắn thời gian xử lý đơn hàng từ 10 phút xuống dưới 2 phút.\n2. KPI 2: Ngăn chặn và phát hiện chính xác 100% lỗi xung đột dữ liệu/tồn kho âm.\n3. KPI 3: Hệ thống đáp ứng tối thiểu 200 người dùng thao tác đồng thời với thời gian phản hồi API < 500ms.\n4. KPI 4: Tự động hóa 100% quy trình xuất hóa đơn và gửi email thông báo sau khi thanh toán.\n5. KPI 5: Tỷ lệ hoàn thành tác vụ của người dùng thử nghiệm UAT đạt trên 90% (SUS >= 80 điểm).\n\n## 4. Bảng metric kỹ thuật điều chỉnh (Theo thỏa thuận với GVHD)\n| Tiêu chí kỹ thuật | Chuẩn mặc định của Rubric | Chuẩn cam kết điều chỉnh | Ghi chú lý do điều chỉnh |\n|---|---|---|---|\n| Độ phủ kiểm thử (TC2.5) | >= 70% dòng lệnh | >= 50% dòng lệnh cốt lõi | Hệ thống tập trung logic backend |\n| Triển khai CI/CD (TC2.6) | 6 chặng pipeline | 5 chặng (Build, Lint, Test, Scan, Deploy) | Phù hợp hạ tầng VPS Staging |\n| Thời gian phản hồi trang | < 2.0s | < 1.5s | Tối ưu SSR |\n\n## 5. Xác nhận và Cam kết\n- Đại diện sinh viên ký tên: .......................... (Ngày: ..../..../202...)\n- Giảng viên hướng dẫn xác nhận: ...................... (Ngày: ..../..../202...)\n- Kết luận rà soát của Bộ môn: ĐẠT ☐ / KHÔNG ĐẠT ☐`,
         command: 'Đề tài đồ án của tôi là [tên đề tài], hãy gợi ý cho tôi 5 KPI nghiệp vụ định lượng đo lường giá trị thực tế cho người dùng và bảng chỉ tiêu kỹ thuật theo Bước 3'
@@ -483,7 +476,7 @@
         blockingTag: 'G8 - Hạ 1 mức TC2.2 và TC2.4 nếu repo không build được',
         desc: 'Mã nguồn phân lớp rõ ràng, commit rải đều trên 90% số tuần trong kỳ, commit message chuẩn. Tách cấu hình qua biến môi trường (.env.example), 0 secret bị lộ.',
         terms: [
-          { key: 'Tách cấu hình', text: 'Không lưu mật khẩu, chuỗi kết nối database trong code mà đọc qua biến môi trường process.env hoặc file .env.' }
+          {key: 'Tách cấu hình',text: 'Không lưu mật khẩu, chuỗi kết nối database trong code mà đọc qua biến môi trường process.env hoặc file .env.'}
         ],
         template: `# Lệnh kiểm tra commit rải đều các tuần trong kỳ\ngit log --pretty=format:"%ad : %s" --date=short\n\n# Lệnh đẩy code từ kho cá nhân sang kho GitLab được chỉ định\ngit remote set-url origin <link-gitlab-duoc-phan-cong> && git push --force`,
         command: 'Hướng dẫn chuẩn viết Git Commit (Conventional Commits) và các thực hành tốt nhất về bảo mật biến môi trường với file .env'
@@ -499,7 +492,7 @@
         blockingTag: 'Bắt buộc để chạy lại hệ thống',
         desc: 'Cung cấp toàn bộ schema và dữ liệu mẫu đủ để dựng lại database hoàn chỉnh trong vài giây.',
         terms: [
-          { key: 'Dữ liệu mẫu (Seed)', text: 'Các bản ghi ban đầu sẵn có để người chấm đăng nhập và trải nghiệm ngay không cần tự tạo dữ liệu.' }
+          {key: 'Dữ liệu mẫu (Seed)',text: 'Các bản ghi ban đầu sẵn có để người chấm đăng nhập và trải nghiệm ngay không cần tự tạo dữ liệu.'}
         ],
         template: `# Nếu dùng SQL - Lệnh xuất cấu trúc và dữ liệu ra 1 file\nmysqldump -u root -p ten_database > database/dump.sql\npg_dump -U postgres -d ten_database -f database/dump.sql\n\n# Nếu dùng MongoDB - Lệnh xuất từng collection\nmongoexport --db=ten_db --collection=users --out=database/users.json`,
         command: 'Cách xuất toàn bộ cấu trúc bảng và dữ liệu mẫu bằng lệnh mysqldump cho SQL hoặc công cụ MongoDB Compass'
@@ -515,7 +508,7 @@
         blockingTag: 'Bắt buộc tiếp nhận hệ thống',
         desc: 'Hướng dẫn cài đặt từ đầu, cung cấp link môi trường thực tế (Staging hoặc Production có người dùng thật) kèm tài khoản test, và bảng thống kê Nợ kỹ thuật kèm kế hoạch khắc phục.',
         terms: [
-          { key: 'Nợ kỹ thuật (Technical Debt)', text: 'Những đoạn code hoặc thiết kế làm tạm bợ cho kịp hạn chót mà nhóm nhận thức được và lên kế hoạch tối ưu sau.' }
+          {key: 'Nợ kỹ thuật (Technical Debt)',text: 'Những đoạn code hoặc thiết kế làm tạm bợ cho kịp hạn chót mà nhóm nhận thức được và lên kế hoạch tối ưu sau.'}
         ],
         template: `# HƯỚNG DẪN CÀI ĐẶT VÀ TIẾP NHẬN HỆ THỐNG\n\n## 1. Môi trường triển khai thực tế\n- Đường dẫn ứng dụng: https://demo-app.example.com\n- Tài khoản Admin: admin@test.com / MatKhau123@\n- Tài khoản Khách: user@test.com / MatKhau123@\n\n## 2. Hướng dẫn chạy máy nội bộ\n\`\`\`bash\ncp .env.example .env\nnpm install\nnpm run migrate\nnpm run dev\n\`\`\`\n\n## 3. Danh mục nợ kỹ thuật (Technical Debt)\n| Vị trí / Mô-đun | Vấn đề hiện tại | Rủi ro | Kế hoạch xử lý tương lai |\n|---|---|---|---|\n| Thống kê doanh thu | Đang tính toán đồng bộ làm chậm trang | Đơ giao diện khi > 10.000 dòng | Chuyển sang Job ngầm với Redis Queue |`,
         command: 'Mẫu danh mục nợ kỹ thuật Technical Debt và hướng dẫn viết file README cho đồ án phần mềm'
@@ -531,7 +524,7 @@
         blockingTag: 'G6 - Tối đa Mức 2 TC2.6 nếu thiếu CI/CD chạy được',
         desc: 'Xuất file json từ GitHub/GitLab gồm pr_history.json, cicd_runs.json, bug_tracker.json. Tệp cấu hình pipeline CI/CD tối thiểu 6 chặng.',
         terms: [
-          { key: 'Pipeline 6 chặng', text: 'Build -> Lint -> Test -> Security scan -> Package Docker -> Deploy tự động lên Staging.' }
+          {key: 'Pipeline 6 chặng',text: 'Build -> Lint -> Test -> Security scan -> Package Docker -> Deploy tự động lên Staging.'}
         ],
         template: `# Lệnh xuất dữ liệu bằng GitHub CLI\ngh pr list --state all --limit 200 --json number,title,author,state,createdAt,mergedAt,reviews > submission_docs/project_history/pr_history.json\ngh run list --limit 200 --json databaseId,name,status,conclusion,createdAt,updatedAt > submission_docs/project_history/cicd_runs.json\ngh issue list --state all --limit 200 --json number,title,labels,state,createdAt,closedAt > submission_docs/project_history/bug_tracker.json`,
         command: 'Cách dùng GitHub CLI xuất danh sách Pull Request, kết quả chạy Actions CI/CD và danh sách Issues ra file json'
@@ -547,8 +540,8 @@
         blockingTag: 'G5 - Tối đa Mức 1 (<= 1.75đ) nếu không có test',
         desc: 'Kế hoạch kiểm thử 4 tầng, kịch bản test case truy vết về Acceptance Criteria, bao phủ ca âm và ca biên. Tỷ lệ pass 100% lần cuối, 0 bug critical tồn đọng.',
         terms: [
-          { key: '4 tầng kiểm thử', text: 'Unit Test, Integration Test, API Test, E2E UI Test.' },
-          { key: 'Ca âm và ca biên', text: 'Nhập sai định dạng, truyền thiếu token, nhập giá trị rỗng hoặc vượt ngưỡng tối đa.' }
+          {key: '4 tầng kiểm thử',text: 'Unit Test, Integration Test, API Test, E2E UI Test.'},
+          {key: 'Ca âm và ca biên',text: 'Nhập sai định dạng, truyền thiếu token, nhập giá trị rỗng hoặc vượt ngưỡng tối đa.'}
         ],
         template: `# TÀI LIỆU VÀ KỊCH BẢN KIỂM THỬ\n\n| Mã TC | Thuộc AC | Tầng | Tên kịch bản | Dữ liệu kiểm thử | Kết quả mong đợi | Tự động hóa | Trạng thái |\n|---|---|---|---|---|---|---|---|\n| TC01 | AC1 | Unit | Tính tổng tiền giỏ hàng | 2 món giá 100k, mã giảm 10% | Ra 180.000đ | Có (Jest) | Pass |\n| TC02 | AC2 | API | Đặt hàng khi tồn kho = 0 | Số lượng đặt = 1, kho = 0 | Báo lỗi 400 Bad Request | Có (Supertest) | Pass |`,
         command: 'Mẫu tài liệu kế hoạch kiểm thử Test Plan và danh sách Test Case ánh xạ Acceptance Criteria bằng Markdown'
@@ -564,7 +557,7 @@
         blockingTag: 'Minh chứng số liệu bắt buộc cho Mức 4 và 5',
         desc: 'Chứa CODING_CONVENTION.MD, báo cáo linter (0 lỗi), báo cáo quét secret gitleaks (0 lộ key), báo cáo độ phủ mã nguồn cốt lõi (>= 70% hoặc theo cam kết Bước 3).',
         terms: [
-          { key: 'Độ phủ dòng lệnh (Line Coverage)', text: 'Tỷ lệ % số dòng code thực tế được chạy qua ít nhất một lần khi thực thi bộ kiểm thử tự động.' }
+          {key: 'Độ phủ dòng lệnh (Line Coverage)',text: 'Tỷ lệ % số dòng code thực tế được chạy qua ít nhất một lần khi thực thi bộ kiểm thử tự động.'}
         ],
         template: `# Lệnh chạy quét secret bằng gitleaks\ngitleaks detect --source . --report-path submission_docs/quality_reports/gitleaks_report.json\n\n# Lệnh chạy linter và xuất báo cáo\nnpm run lint -- --output-file submission_docs/quality_reports/lint_report.json --format json`,
         command: 'Cách cấu hình đo code coverage xuất file tóm tắt và dùng gitleaks quét secret trong git'
@@ -581,8 +574,8 @@
         blockingTag: 'G3, G4 - Nhận 0đ TC2.3 nếu gian lận hoặc kê khai sai',
         desc: 'Ghi rõ công cụ, phạm vi dùng AI, prompt chính, dòng code AI sinh và phần sinh viên sửa. Nêu tối thiểu 5 lỗi hoặc ảo giác của AI đã tự phát hiện và commit sửa. Tệp AI_REVIEW ghi rõ checklist review code và bảo mật prompt.',
         terms: [
-          { key: 'Ảo giác của AI (Hallucination)', text: 'Đoạn mã do AI tự bịa ra hàm không tồn tại, sai logic nghiệp vụ hoặc cấu hình sai thư viện.' },
-          { key: 'Bảo mật trong Prompt', text: 'Nguyên tắc xóa bỏ toàn bộ mật khẩu, API key, dữ liệu người dùng thật trước khi gửi cho AI.' }
+          {key: 'Ảo giác của AI (Hallucination)',text: 'Đoạn mã do AI tự bịa ra hàm không tồn tại, sai logic nghiệp vụ hoặc cấu hình sai thư viện.'},
+          {key: 'Bảo mật trong Prompt',text: 'Nguyên tắc xóa bỏ toàn bộ mật khẩu, API key, dữ liệu người dùng thật trước khi gửi cho AI.'}
         ],
         template: `# NHẬT KÝ SỬ DỤNG CÔNG CỤ AI (AI_LOG.MD)\n\n| STT | Công cụ | Phạm vi / Tệp tin | Prompt chính sử dụng | Mã AI sinh | Phần SV tinh chỉnh | Mã Commit |\n|---|---|---|---|---|---|---|\n| 1 | Claude 3.5 | src/services/auth.js | Viết hàm tạo JWT token | Toàn bộ hàm login | Thêm kiểm tra khóa bí mật | e3f1a2b |\n\n## Danh mục 5 lỗi / ảo giác của AI đã phát hiện và sửa chữa\n1. Lỗi AI dùng hàm bcrypt.hashSync bị chặn luồng: SV đổi sang bất đồng bộ bcrypt.hash (Commit c1a2b3).\n2. Lỗi AI tự bịa tên trường total_amount trong bảng orders (tên đúng là total_price) (Commit d4e5f6).\n3. Lỗi AI sinh câu truy vấn SQL dính lỗ hổng Injection: SV đổi sang parameterized query (Commit a7b8c9).\n4. Lỗi AI gọi thư viện đã bị khai tử: SV thay bằng thư viện mới theo tài liệu chính thức (Commit f1e2d3).\n5. Lỗi AI bỏ quên điều kiện biên số lượng tồn kho âm khi trừ hàng (Commit 99a1b2).`,
         command: 'Hãy tạo mẫu bảng Nhật ký sử dụng AI AI Usage Log bằng Markdown và danh sách checklist kiểm soát code do AI sinh'
@@ -599,7 +592,7 @@
         blockingTag: 'G4 - Nhận 0đ toàn bộ nếu phát hiện mâu thuẫn Git',
         desc: 'Cam kết 100% mã nguồn, thiết kế và nội dung do sinh viên tự làm, lịch sử Git đều đặn hàng tuần.',
         terms: [
-          { key: 'Cam kết trung thực', text: 'Nếu cam kết không dùng nhưng Git dồn cục cuối kỳ hoặc vấn đáp không trả lời được sẽ xử lý theo Mục 6.' }
+          {key: 'Cam kết trung thực',text: 'Nếu cam kết không dùng nhưng Git dồn cục cuối kỳ hoặc vấn đáp không trả lời được sẽ xử lý theo Mục 6.'}
         ],
         template: `# BẢN CAM KẾT KHÔNG SỬ DỤNG CÔNG CỤ SINH MÃ TỰ ĐỘNG (AI)\n\nTôi tên là: [Họ và tên]\nMSSV: [Mã số sinh viên]\nĐề tài: [Tên đề tài]\n\nTôi xin cam kết 100% mã nguồn, thiết kế kiến trúc và nội dung báo cáo đều do tôi tự thực hiện, hoàn toàn không sử dụng các công cụ LLM / AI sinh mã. Toàn bộ tiến trình làm việc được phản ánh minh bạch qua lịch sử Git. Nếu có bất kỳ sự mâu thuẫn nào, tôi xin chịu 0 điểm tiêu chí TC2.3 và chịu xử lý theo quy chế.`,
         command: 'Mẫu văn bản cam kết không sử dụng công cụ AI trong học tập'
@@ -615,7 +608,7 @@
         blockingTag: 'G7 - Tối đa Mức 1 (<= 1.75đ) nếu không có thực nghiệm',
         desc: '>= 10 người dùng thật thử nghiệm theo kịch bản tác vụ. Đo tỷ lệ hoàn thành tác vụ (>= 90%), khảo sát điểm SUS (>= 80). Tối thiểu 1 vòng cải tiến có đo lại trước và sau.',
         terms: [
-          { key: 'Thang đo SUS', text: 'Bảng 10 câu hỏi chuẩn đo lường độ dễ dùng của hệ thống, tính toán quy đổi ra thang điểm 100.' }
+          {key: 'Thang đo SUS',text: 'Bảng 10 câu hỏi chuẩn đo lường độ dễ dùng của hệ thống, tính toán quy đổi ra thang điểm 100.'}
         ],
         template: `# BÁO CÁO THỰC NGHIỆM VÀ ĐO ĐIỂM SUS\n\n## 1. Danh sách 10 người dùng thử nghiệm (Ẩn danh)\n- U01: 22 tuổi, sinh viên\n- U02: 30 tuổi, nhân viên văn phòng\n\n## 2. Bảng so sánh trước và sau cải tiến\n| Chỉ số đo lường | Trước cải tiến (Vòng 1) | Sau cải tiến (Vòng 2) | Đánh giá |\n|---|---|---|---|\n| Tỷ lệ hoàn thành tác vụ | 75% | 92% | Đạt Mức 5 (>= 90%) |\n| Điểm hài lòng SUS | 65 điểm | 82.5 điểm | Đạt Mức 5 (>= 80 điểm) |`,
         command: '10 câu hỏi chuẩn của thang đo SUS System Usability Scale bằng tiếng Việt và cách tính điểm'
@@ -631,7 +624,7 @@
         blockingTag: 'V4 - Nhận 0 điểm toàn đồ án nếu trùng lặp quá mức',
         desc: 'Luận văn hoàn chỉnh (0 lỗi chính tả, trích dẫn >= 5 tài liệu ngoại ngữ chất lượng). Báo cáo kiểm tra trùng lặp (<= 20%). Slide có ảnh pipeline, coverage. Video demo YouTube unlisted.',
         terms: [
-          { key: 'Trích dẫn ngoại ngữ', text: 'Sách chuyên khảo, bài báo khoa học, tiêu chuẩn ISO/IEEE, tài liệu chính thức của công nghệ sử dụng.' }
+          {key: 'Trích dẫn ngoại ngữ',text: 'Sách chuyên khảo, bài báo khoa học, tiêu chuẩn ISO/IEEE, tài liệu chính thức của công nghệ sử dụng.'}
         ],
         template: `# Nội dung file VIDEO.TXT\n- Đường dẫn video demo YouTube (Không công khai): https://youtu.be/example123\n- Thời lượng video: 12 phút\n- Mô tả: Video quay rõ luồng nghiệp vụ chính và chạy pipeline CI/CD trực tiếp.`,
         command: 'Cách trích dẫn tài liệu tham khảo chuẩn IEEE trong báo cáo đồ án tốt nghiệp'
@@ -647,7 +640,7 @@
         blockingTag: 'Hạng mục tùy chọn - Điểm thưởng',
         desc: 'Bài báo khoa học, giải thưởng cuộc thi, văn bản doanh nghiệp xác nhận ứng dụng thực tế, pull request merge vào dự án mã nguồn mở lớn bên ngoài.',
         terms: [
-          { key: 'Văn bản xác nhận', text: 'Giấy xác nhận có ký tên đóng dấu của tổ chức hoặc doanh nghiệp chứng minh hệ thống đang được sử dụng.' }
+          {key: 'Văn bản xác nhận',text: 'Giấy xác nhận có ký tên đóng dấu của tổ chức hoặc doanh nghiệp chứng minh hệ thống đang được sử dụng.'}
         ],
         template: `# BẢNG TỔNG HỢP KẾT QUẢ NỔI BẬT\n\n- Giấy khen giải Nhì Hackathon sinh viên cấp Trường (Đính kèm: giai_thuong.pdf)\n- Xác nhận triển khai cho công ty TNHH ABC (Đính kèm: xac_nhan_doanh_nghiep.pdf)`,
         command: 'Hướng dẫn cách đóng góp vào dự án mã nguồn mở và quy trình để được duyệt chấp nhận Pull Request trên GitHub'
@@ -655,8 +648,8 @@
     ];
 
     // Quản lý trạng thái lưu trữ LocalStorage
-    const STORAGE_KEY = 'project_checklist_state_v1';
-    let appState = {
+    const STORAGE_KEY='project_checklist_state_v1';
+    let appState={
       checkedItems: {},
       useAI: true,
       dbType: 'sql',
@@ -664,34 +657,34 @@
     };
 
     function loadState() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
+      const saved=localStorage.getItem(STORAGE_KEY);
+      if(saved) {
         try {
-          appState = { ...appState, ...JSON.parse(saved) };
-        } catch (e) {
-          console.error('Không thể đọc dữ liệu cũ', e);
+          appState={...appState,...JSON.parse(saved)};
+        } catch(e) {
+          console.error('Không thể đọc dữ liệu cũ',e);
         }
       }
     }
 
     function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(appState));
       updateProgress();
     }
 
     // Lọc danh sách items theo trạng thái AI và bộ lọc hiện tại
     function getFilteredItems() {
       return itemsData.filter(item => {
-        if (item.conditional === 'ai_yes' && !appState.useAI) return false;
-        if (item.conditional === 'ai_no' && appState.useAI) return false;
-        if (appState.currentFilter === 'continuous') {
-          return item.isContinuous === true;
+        if(item.conditional==='ai_yes'&&!appState.useAI) return false;
+        if(item.conditional==='ai_no'&&appState.useAI) return false;
+        if(appState.currentFilter==='continuous') {
+          return item.isContinuous===true;
         }
-        if (appState.currentFilter === 'blocking') {
-          return item.blockingTag && (item.blockingTag.includes('G') || item.blockingTag.includes('V4'));
+        if(appState.currentFilter==='blocking') {
+          return item.blockingTag&&(item.blockingTag.includes('G')||item.blockingTag.includes('V4'));
         }
-        if (appState.currentFilter !== 'all') {
-          return item.phase === appState.currentFilter;
+        if(appState.currentFilter!=='all') {
+          return item.phase===appState.currentFilter;
         }
         return true;
       });
@@ -699,32 +692,32 @@
 
     // Cập nhật tiến độ thanh %
     function updateProgress() {
-      const activeItems = itemsData.filter(item => {
-        if (item.conditional === 'ai_yes' && !appState.useAI) return false;
-        if (item.conditional === 'ai_no' && appState.useAI) return false;
+      const activeItems=itemsData.filter(item => {
+        if(item.conditional==='ai_yes'&&!appState.useAI) return false;
+        if(item.conditional==='ai_no'&&appState.useAI) return false;
         return true;
       });
 
-      const total = activeItems.length;
-      let checkedCount = 0;
+      const total=activeItems.length;
+      let checkedCount=0;
       activeItems.forEach(item => {
-        if (appState.checkedItems[item.id]) checkedCount++;
+        if(appState.checkedItems[item.id]) checkedCount++;
       });
 
-      const percent = total === 0 ? 0 : Math.round((checkedCount / total) * 100);
-      document.getElementById('progressBar').style.width = percent + '%';
-      document.getElementById('progressText').innerText = `${checkedCount} / ${total} mục (${percent}%)`;
+      const percent=total===0? 0:Math.round((checkedCount/total)*100);
+      document.getElementById('progressBar').style.width=percent+'%';
+      document.getElementById('progressText').innerText=`${checkedCount} / ${total} mục (${percent}%)`;
     }
 
     // Tính năng Thu gọn tất cả các thẻ đang mở
     function collapseAllCards() {
       itemsData.forEach(item => {
-        const body = document.getElementById(`body-${item.id}`);
-        const icon = document.getElementById(`icon-${item.id}`);
-        if (body) {
+        const body=document.getElementById(`body-${item.id}`);
+        const icon=document.getElementById(`icon-${item.id}`);
+        if(body) {
           body.classList.add('hidden');
         }
-        if (icon) {
+        if(icon) {
           icon.classList.remove('rotate-180');
         }
       });
@@ -733,12 +726,12 @@
     // Tính năng Mở rộng tất cả các thẻ
     function expandAllCards() {
       itemsData.forEach(item => {
-        const body = document.getElementById(`body-${item.id}`);
-        const icon = document.getElementById(`icon-${item.id}`);
-        if (body) {
+        const body=document.getElementById(`body-${item.id}`);
+        const icon=document.getElementById(`icon-${item.id}`);
+        if(body) {
           body.classList.remove('hidden');
         }
-        if (icon) {
+        if(icon) {
           icon.classList.add('rotate-180');
         }
       });
@@ -746,75 +739,75 @@
 
     // Đóng/Mở cây thư mục trên giao diện Mobile
     function toggleMobileTree() {
-      const tree = document.getElementById('treeContainer');
-      const icon = document.getElementById('iconTreeMobile');
-      if (!tree) return;
-      const isHidden = tree.classList.contains('hidden');
-      if (isHidden) {
+      const tree=document.getElementById('treeContainer');
+      const icon=document.getElementById('iconTreeMobile');
+      if(!tree) return;
+      const isHidden=tree.classList.contains('hidden');
+      if(isHidden) {
         tree.classList.remove('hidden');
-        if (icon) icon.classList.add('rotate-180');
+        if(icon) icon.classList.add('rotate-180');
       } else {
         tree.classList.add('hidden');
-        if (icon) icon.classList.remove('rotate-180');
+        if(icon) icon.classList.remove('rotate-180');
       }
     }
 
     // Quản lý trạng thái mở rộng mô tả các thẻ (Xem thêm / Thu gọn) inline giống Facebook
-    const expandedDescs = new Set();
-    const DESC_MAX_LENGTH = 100;
+    const expandedDescs=new Set();
+    const DESC_MAX_LENGTH=100;
 
-    function getTruncatedDesc(text, maxLen = DESC_MAX_LENGTH) {
-      if (text.length <= maxLen) return text;
-      let truncated = text.slice(0, maxLen);
-      const lastSpace = truncated.lastIndexOf(' ');
-      if (lastSpace > maxLen * 0.7) {
-        truncated = truncated.slice(0, lastSpace);
+    function getTruncatedDesc(text,maxLen=DESC_MAX_LENGTH) {
+      if(text.length<=maxLen) return text;
+      let truncated=text.slice(0,maxLen);
+      const lastSpace=truncated.lastIndexOf(' ');
+      if(lastSpace>maxLen*0.7) {
+        truncated=truncated.slice(0,lastSpace);
       }
       return truncated.trim();
     }
 
-    function toggleDesc(id, event) {
-      if (event) {
+    function toggleDesc(id,event) {
+      if(event) {
         event.stopPropagation();
         event.preventDefault();
       }
-      const item = itemsData.find(i => i.id === id);
-      if (!item) return;
+      const item=itemsData.find(i => i.id===id);
+      if(!item) return;
 
-      const textSpan = document.getElementById(`desc-text-${id}`);
-      const btn = document.getElementById(`btn-desc-${id}`);
-      if (!textSpan || !btn) return;
+      const textSpan=document.getElementById(`desc-text-${id}`);
+      const btn=document.getElementById(`btn-desc-${id}`);
+      if(!textSpan||!btn) return;
 
-      const isExpanded = expandedDescs.has(id);
-      if (isExpanded) {
+      const isExpanded=expandedDescs.has(id);
+      if(isExpanded) {
         expandedDescs.delete(id);
-        const truncated = getTruncatedDesc(item.desc);
-        textSpan.innerText = truncated + '... ';
-        btn.querySelector('span').innerText = 'Xem thêm';
+        const truncated=getTruncatedDesc(item.desc);
+        textSpan.innerText=truncated+'... ';
+        btn.querySelector('span').innerText='Xem thêm';
         btn.classList.remove('ml-1');
       } else {
         expandedDescs.add(id);
-        textSpan.innerText = item.desc + ' ';
-        btn.querySelector('span').innerText = 'Thu gọn';
+        textSpan.innerText=item.desc+' ';
+        btn.querySelector('span').innerText='Thu gọn';
         btn.classList.add('ml-1');
       }
     }
 
     // Vẽ danh sách thẻ chi tiết bên cột phải
     function renderCards() {
-      const container = document.getElementById('cardsContainer');
-      container.innerHTML = '';
+      const container=document.getElementById('cardsContainer');
+      container.innerHTML='';
 
-      const filteredItems = getFilteredItems();
+      const filteredItems=getFilteredItems();
 
       // Cập nhật nhãn số lượng mục đang lọc
-      const badge = document.getElementById('filteredCountBadge');
-      if (badge) {
-        badge.innerText = `${filteredItems.length} mục`;
+      const badge=document.getElementById('filteredCountBadge');
+      if(badge) {
+        badge.innerText=`${filteredItems.length} mục`;
       }
 
-      if (filteredItems.length === 0) {
-        container.innerHTML = `
+      if(filteredItems.length===0) {
+        container.innerHTML=`
           <div class="bg-white p-8 rounded-xl border border-slate-200 text-center text-slate-500 shadow-sm">
             <svg class="w-10 h-10 mx-auto text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <p class="text-sm font-medium text-slate-700">Không có hồ sơ nào khớp với bộ lọc hiện tại</p>
@@ -827,17 +820,17 @@
       }
 
       filteredItems.forEach(item => {
-        const isChecked = !!appState.checkedItems[item.id];
-        const isDescExpanded = expandedDescs.has(item.id);
-        const isLong = item.desc.length > DESC_MAX_LENGTH;
-        const truncatedText = isLong ? getTruncatedDesc(item.desc) : item.desc;
-        const currentText = isDescExpanded ? (item.desc + ' ') : (isLong ? (truncatedText + '... ') : item.desc);
-        const card = document.createElement('div');
-        card.id = `card-${item.id}`;
-        card.className = `bg-white rounded-xl border ${isChecked ? 'border-indigo-300 ring-1 ring-indigo-100' : 'border-slate-200'} shadow-sm transition-all overflow-hidden`;
+        const isChecked=!!appState.checkedItems[item.id];
+        const isDescExpanded=expandedDescs.has(item.id);
+        const isLong=item.desc.length>DESC_MAX_LENGTH;
+        const truncatedText=isLong? getTruncatedDesc(item.desc):item.desc;
+        const currentText=isDescExpanded? (item.desc+' '):(isLong? (truncatedText+'... '):item.desc);
+        const card=document.createElement('div');
+        card.id=`card-${item.id}`;
+        card.className=`bg-white rounded-xl border ${isChecked? 'border-indigo-300 ring-1 ring-indigo-100':'border-slate-200'} shadow-sm transition-all overflow-hidden`;
 
         // Render danh sách thuật ngữ
-        const termsHtml = item.terms.map(t => `
+        const termsHtml=item.terms.map(t => `
           <div class="text-xs bg-slate-50 p-2.5 rounded border border-slate-100">
             <span class="font-bold text-indigo-700">${t.key} - </span>
             <span class="text-slate-600">${t.text}</span>
@@ -845,7 +838,7 @@
         `).join('');
 
         // Hướng dẫn và Lưu ý đặc biệt cho Bản cam kết Bước 3
-        const step3NoticeHtml = item.id === 'commitment_step3' ? `
+        const step3NoticeHtml=item.id==='commitment_step3'? `
           <div class="bg-rose-50 border-l-4 border-rose-500 p-3.5 rounded-r-lg text-xs space-y-2 shadow-2xs">
             <div class="flex items-center gap-1.5 font-bold text-rose-800 uppercase tracking-wide">
               <svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -871,40 +864,40 @@
               </div>
             </div>
           </div>
-        ` : '';
+        ` :'';
 
-        card.innerHTML = `
+        card.innerHTML=`
           <div class="p-4 cursor-pointer hover:bg-slate-50/80 transition flex items-start gap-3.5 select-none" onclick="toggleAccordion('${item.id}', event)">
-            <input type="checkbox" id="check-${item.id}" ${isChecked ? 'checked' : ''}
+            <input type="checkbox" id="check-${item.id}" ${isChecked? 'checked':''}
               class="mt-1 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 cursor-pointer"
               onclick="handleCheck('${item.id}', event)">
 
             <div class="flex-1 min-w-0">
               <div class="flex flex-wrap items-center gap-2 mb-1">
                 <span class="font-mono text-xs font-bold text-slate-900">${item.name}</span>
-                <span class="px-2 py-0.5 text-[10px] font-semibold rounded ${item.mandatory ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
-                  ${item.mandatory ? 'Bắt buộc' : 'Tùy chọn cộng điểm'}
+                <span class="px-2 py-0.5 text-[10px] font-semibold rounded ${item.mandatory? 'bg-amber-100 text-amber-800':'bg-emerald-100 text-emerald-800'}">
+                  ${item.mandatory? 'Bắt buộc':'Tùy chọn cộng điểm'}
                 </span>
-                ${item.isContinuous ? `
+                ${item.isContinuous? `
                   <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-amber-500 text-white shadow-2xs">
                     Làm xuyên suốt kỳ
                   </span>
-                ` : ''}
+                ` :''}
                 <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 text-slate-700 border border-slate-200">
                   ${item.criteria}
                 </span>
-                ${item.blockingTag ? `
+                ${item.blockingTag? `
                   <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-rose-50 text-rose-700 border border-rose-200">
                     ${item.blockingTag}
                   </span>
-                ` : ''}
+                ` :''}
               </div>
               <p id="desc-${item.id}" class="text-xs text-slate-500 leading-relaxed">
-                <span id="desc-text-${item.id}">${currentText}</span>${isLong ? `
+                <span id="desc-text-${item.id}">${currentText}</span>${isLong? `
                 <button type="button" id="btn-desc-${item.id}" onclick="toggleDesc('${item.id}', event)"
-                  class="font-semibold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer focus:outline-hidden select-none inline-flex items-center gap-0.5 ${isDescExpanded ? 'ml-1' : ''}">
-                  <span>${isDescExpanded ? 'Thu gọn' : 'Xem thêm'}</span>
-                </button>` : ''}
+                  class="font-semibold text-indigo-600 hover:text-indigo-800 hover:underline cursor-pointer focus:outline-hidden select-none inline-flex items-center gap-0.5 ${isDescExpanded? 'ml-1':''}">
+                  <span>${isDescExpanded? 'Thu gọn':'Xem thêm'}</span>
+                </button>` :''}
               </p>
             </div>
 
@@ -919,12 +912,12 @@
             ${step3NoticeHtml}
 
             <!-- Thuật ngữ -->
-            ${item.terms.length > 0 ? `
+            ${item.terms.length>0? `
               <div>
                 <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Thuật ngữ cần lưu ý</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">${termsHtml}</div>
               </div>
-            ` : ''}
+            ` :''}
 
             <!-- Khung mẫu Markdown -->
             <div>
@@ -960,67 +953,67 @@
 
     // Vẽ cây thư mục bên cột trái (Đã tối ưu lọc đồng bộ và sắp xếp thời gian)
     function renderTree() {
-      const tree = document.getElementById('treeContainer');
-      tree.innerHTML = '';
+      const tree=document.getElementById('treeContainer');
+      tree.innerHTML='';
 
-      const filteredItems = getFilteredItems();
+      const filteredItems=getFilteredItems();
 
       // Cập nhật badge số lượng trên header cây thư mục
-      const treeCountBadge = document.getElementById('treeCountBadge');
-      if (treeCountBadge) {
-        treeCountBadge.innerText = `${filteredItems.length} mục`;
+      const treeCountBadge=document.getElementById('treeCountBadge');
+      if(treeCountBadge) {
+        treeCountBadge.innerText=`${filteredItems.length} mục`;
       }
 
-      if (filteredItems.length === 0) {
-        tree.innerHTML = `<div class="text-slate-400 italic p-3 text-center text-xs">Không có mục nào trong bộ lọc này</div>`;
+      if(filteredItems.length===0) {
+        tree.innerHTML=`<div class="text-slate-400 italic p-3 text-center text-xs">Không có mục nào trong bộ lọc này</div>`;
         return;
       }
 
       // Phân nhóm theo tiến trình thời gian: Đầu kỳ -> Giữa kỳ -> Cuối kỳ
-      const phaseNames = {
+      const phaseNames={
         step12: '1. Đầu kỳ (Bước 1-2)',
         step3: '2. Giữa kỳ (Bước 3)',
         step4: '3. Cuối kỳ (Bước 4)'
       };
 
-      const groups = {};
+      const groups={};
       filteredItems.forEach(item => {
-        const p = item.phase || 'step4';
-        if (!groups[p]) groups[p] = [];
+        const p=item.phase||'step4';
+        if(!groups[p]) groups[p]=[];
         groups[p].push(item);
       });
 
-      const phaseOrder = ['step12', 'step3', 'step4'];
+      const phaseOrder=['step12','step3','step4'];
 
       phaseOrder.forEach(phaseKey => {
-        const itemsInPhase = groups[phaseKey];
-        if (!itemsInPhase || itemsInPhase.length === 0) return;
+        const itemsInPhase=groups[phaseKey];
+        if(!itemsInPhase||itemsInPhase.length===0) return;
 
         // Tiêu đề nhóm giai đoạn
-        const phaseHeader = document.createElement('div');
-        phaseHeader.className = 'text-[11px] font-bold text-slate-500 uppercase tracking-wider pt-2 pb-1 border-b border-slate-100 flex items-center justify-between';
-        phaseHeader.innerHTML = `
+        const phaseHeader=document.createElement('div');
+        phaseHeader.className='text-[11px] font-bold text-slate-500 uppercase tracking-wider pt-2 pb-1 border-b border-slate-100 flex items-center justify-between';
+        phaseHeader.innerHTML=`
           <span>${phaseNames[phaseKey]}</span>
           <span class="text-[10px] text-slate-400 font-normal">(${itemsInPhase.length})</span>
         `;
         tree.appendChild(phaseHeader);
 
         itemsInPhase.forEach(item => {
-          const isChecked = !!appState.checkedItems[item.id];
-          const row = document.createElement('div');
-          row.className = `flex items-center justify-between p-1.5 rounded cursor-pointer transition ${isChecked ? 'text-emerald-700 bg-emerald-50/70 font-semibold' : 'text-slate-600 hover:bg-slate-100'}`;
-          row.onclick = () => jumpToCard(item.id);
+          const isChecked=!!appState.checkedItems[item.id];
+          const row=document.createElement('div');
+          row.className=`flex items-center justify-between p-1.5 rounded cursor-pointer transition ${isChecked? 'text-emerald-700 bg-emerald-50/70 font-semibold':'text-slate-600 hover:bg-slate-100'}`;
+          row.onclick=() => jumpToCard(item.id);
 
-          row.innerHTML = `
+          row.innerHTML=`
             <span class="truncate whitespace-normal flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 shrink-0 ${isChecked ? 'text-emerald-600' : 'text-slate-400'}" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-3.5 h-3.5 shrink-0 ${isChecked? 'text-emerald-600':'text-slate-400'}" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
               </svg>
               <span class="w-fit text-[11px] sm:text-xs">${item.treeLabel}</span>
             </span>
-            ${isChecked ? `
+            ${isChecked? `
               <svg class="w-4 h-4 text-emerald-600 shrink-0 ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            ` : '<span class="w-2 h-2 rounded-full bg-slate-200 shrink-0 ml-1"></span>'}
+            ` :'<span class="w-2 h-2 rounded-full bg-slate-200 shrink-0 ml-1"></span>'}
           `;
 
           tree.appendChild(row);
@@ -1029,88 +1022,88 @@
     }
 
     // Xử lý mở hoặc thu gọn Accordion
-    function toggleAccordion(id, event) {
-      if (event.target.tagName.toLowerCase() === 'input' || event.target.tagName.toLowerCase() === 'button' || event.target.closest('button')) return;
-      const body = document.getElementById(`body-${id}`);
-      const icon = document.getElementById(`icon-${id}`);
-      if (!body) return;
+    function toggleAccordion(id,event) {
+      if(event.target.tagName.toLowerCase()==='input'||event.target.tagName.toLowerCase()==='button'||event.target.closest('button')) return;
+      const body=document.getElementById(`body-${id}`);
+      const icon=document.getElementById(`icon-${id}`);
+      if(!body) return;
 
-      const isHidden = body.classList.contains('hidden');
-      if (isHidden) {
+      const isHidden=body.classList.contains('hidden');
+      if(isHidden) {
         body.classList.remove('hidden');
-        if (icon) icon.classList.add('rotate-180');
+        if(icon) icon.classList.add('rotate-180');
       } else {
         body.classList.add('hidden');
-        if (icon) icon.classList.remove('rotate-180');
+        if(icon) icon.classList.remove('rotate-180');
       }
     }
 
     // Cuộn tới thẻ khi bấm vào cây thư mục
     function jumpToCard(id) {
-      const card = document.getElementById(`card-${id}`);
-      if (card) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        const body = document.getElementById(`body-${id}`);
-        const icon = document.getElementById(`icon-${id}`);
-        if (body && body.classList.contains('hidden')) {
+      const card=document.getElementById(`card-${id}`);
+      if(card) {
+        card.scrollIntoView({behavior: 'smooth',block: 'center'});
+        const body=document.getElementById(`body-${id}`);
+        const icon=document.getElementById(`icon-${id}`);
+        if(body&&body.classList.contains('hidden')) {
           body.classList.remove('hidden');
-          if (icon) icon.classList.add('rotate-180');
+          if(icon) icon.classList.add('rotate-180');
         }
       }
     }
 
     // Xử lý khi bấm nút Checkbox
-    function handleCheck(id, event) {
+    function handleCheck(id,event) {
       event.stopPropagation();
-      appState.checkedItems[id] = event.target.checked;
+      appState.checkedItems[id]=event.target.checked;
       saveState();
 
-      const card = document.getElementById(`card-${id}`);
-      if (card) {
-        if (event.target.checked) {
-          card.classList.add('border-indigo-300', 'ring-1', 'ring-indigo-100');
+      const card=document.getElementById(`card-${id}`);
+      if(card) {
+        if(event.target.checked) {
+          card.classList.add('border-indigo-300','ring-1','ring-indigo-100');
         } else {
-          card.classList.remove('border-indigo-300', 'ring-1', 'ring-indigo-100');
+          card.classList.remove('border-indigo-300','ring-1','ring-indigo-100');
         }
       }
       renderTree();
     }
 
     // Sao chép nội dung vào Clipboard
-    function copyTemplate(itemId, btnElement) {
-      const item = itemsData.find(i => i.id === itemId);
-      if (!item) return;
-      copyToClipboard(item.template, btnElement);
+    function copyTemplate(itemId,btnElement) {
+      const item=itemsData.find(i => i.id===itemId);
+      if(!item) return;
+      copyToClipboard(item.template,btnElement);
     }
-    function copyToClipboard(text, btnElement) {
-      if (btnElement.dataset.copying === 'true') return;
-      btnElement.dataset.copying = 'true';
+    function copyToClipboard(text,btnElement) {
+      if(btnElement.dataset.copying==='true') return;
+      btnElement.dataset.copying='true';
 
-      const originalHtml = btnElement.innerHTML;
+      const originalHtml=btnElement.innerHTML;
       navigator.clipboard.writeText(text).then(() => {
-        btnElement.innerHTML = `
+        btnElement.innerHTML=`
           <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
           <span class="text-emerald-700 font-bold">Đã chép!</span>
         `;
         setTimeout(() => {
-          btnElement.innerHTML = originalHtml;
+          btnElement.innerHTML=originalHtml;
           delete btnElement.dataset.copying;
-        }, 1500);
+        },1500);
       }).catch(() => {
         delete btnElement.dataset.copying;
       });
     }
 
     function escapeForSnippet(str) {
-      return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$/g, '\\$');
+      return str.replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$/g,'\\$');
     }
 
     // Quản lý trạng thái Tạm ẩn 7 ngày của khối Lưu ý quan trọng
-    const NOTICE_STORAGE_KEY = 'dismiss_important_notice_until';
+    const NOTICE_STORAGE_KEY='dismiss_important_notice_until';
 
-    function dismissImportantNotice(days = 7) {
-      const expiry = Date.now() + days * 24 * 60 * 60 * 1000;
-      localStorage.setItem(NOTICE_STORAGE_KEY, expiry.toString());
+    function dismissImportantNotice(days=7) {
+      const expiry=Date.now()+days*24*60*60*1000;
+      localStorage.setItem(NOTICE_STORAGE_KEY,expiry.toString());
       checkNoticeVisibility();
     }
 
@@ -1120,81 +1113,81 @@
     }
 
     function checkNoticeVisibility() {
-      const full = document.getElementById('noticeFullContent');
-      const collapsed = document.getElementById('noticeCollapsedBar');
-      const container = document.getElementById('importantNoticeBlock');
-      if (!full || !collapsed || !container) return;
+      const full=document.getElementById('noticeFullContent');
+      const collapsed=document.getElementById('noticeCollapsedBar');
+      const container=document.getElementById('importantNoticeBlock');
+      if(!full||!collapsed||!container) return;
 
-      const savedExpiry = localStorage.getItem(NOTICE_STORAGE_KEY);
-      const isDismissed = savedExpiry && Date.now() < parseInt(savedExpiry, 10);
+      const savedExpiry=localStorage.getItem(NOTICE_STORAGE_KEY);
+      const isDismissed=savedExpiry&&Date.now()<parseInt(savedExpiry,10);
 
-      if (isDismissed) {
+      if(isDismissed) {
         full.classList.add('hidden');
         collapsed.classList.remove('hidden');
-        container.className = 'bg-amber-50/80 p-3 rounded-xl border border-amber-200 mb-6 shadow-2xs transition-all duration-300';
+        container.className='bg-amber-50/80 p-3 rounded-xl border border-amber-200 mb-6 shadow-2xs transition-all duration-300';
       } else {
         full.classList.remove('hidden');
         collapsed.classList.add('hidden');
-        container.className = 'bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-transparent p-4 sm:p-5 rounded-xl border border-amber-300/80 mb-6 shadow-sm transition-all duration-300';
+        container.className='bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-transparent p-4 sm:p-5 rounded-xl border border-amber-300/80 mb-6 shadow-sm transition-all duration-300';
       }
     }
 
     // Quản lý trạng thái cố định thanh tiến độ khi cuộn và nút Go Top
     function initScrollInteractions() {
-      const header = document.querySelector('header');
-      const topRow = document.getElementById('headerTopRow');
-      const btnGoTop = document.getElementById('btnGoTop');
-      let topRowHeight = topRow ? topRow.offsetHeight : 70;
-      let isScrolled = false;
-      let ticking = false;
+      const header=document.querySelector('header');
+      const topRow=document.getElementById('headerTopRow');
+      const btnGoTop=document.getElementById('btnGoTop');
+      let topRowHeight=topRow? topRow.offsetHeight:70;
+      let isScrolled=false;
+      let ticking=false;
 
       // Cập nhật lại chiều cao tiêu đề khi thay đổi kích thước cửa sổ
-      window.addEventListener('resize', () => {
-        if (topRow && !isScrolled) {
-          topRowHeight = topRow.offsetHeight;
+      window.addEventListener('resize',() => {
+        if(topRow&&!isScrolled) {
+          topRowHeight=topRow.offsetHeight;
         }
       });
 
       function onScroll() {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const scrollY=window.scrollY||document.documentElement.scrollTop;
 
         // Dùng cơ chế Hysteresis (ngưỡng trễ) kết hợp bù chiều cao:
         // - Khi cuộn xuống: Chỉ thu gọn khi đã cuộn qua hẳn phần tiêu đề (> 85px)
         // - Khi cuộn lên: Chỉ mở rộng lại khi đã cuộn hẳn về gần đỉnh (< 20px)
         // Giúp triệt tiêu 100% hiện tượng nhấp nhả dao động lưng chừng
-        if (!isScrolled && scrollY > 85) {
-          isScrolled = true;
-          if (topRow) topRowHeight = topRow.offsetHeight;
+        if(!isScrolled&&scrollY>85) {
+          isScrolled=true;
+          if(topRow) topRowHeight=topRow.offsetHeight;
           header.classList.add('is-scrolled');
-          header.style.marginBottom = (topRowHeight + 16) + 'px';
-        } else if (isScrolled && scrollY < 20) {
-          isScrolled = false;
+          header.style.marginBottom=(topRowHeight+16)+'px';
+        } else if(isScrolled&&scrollY<20) {
+          isScrolled=false;
           header.classList.remove('is-scrolled');
-          header.style.marginBottom = '0px';
+          header.style.marginBottom='0px';
         }
 
         // Điều khiển hiển thị nút Go Top
-        if (scrollY > 250) {
-          if (btnGoTop) {
-            btnGoTop.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-            btnGoTop.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        if(scrollY>250) {
+          if(btnGoTop) {
+            btnGoTop.classList.remove('opacity-0','pointer-events-none','translate-y-4');
+            btnGoTop.classList.add('opacity-100','pointer-events-auto','translate-y-0');
           }
         } else {
-          if (btnGoTop) {
-            btnGoTop.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-            btnGoTop.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          if(btnGoTop) {
+            btnGoTop.classList.add('opacity-0','pointer-events-none','translate-y-4');
+            btnGoTop.classList.remove('opacity-100','pointer-events-auto','translate-y-0');
           }
         }
 
-        ticking = false;
+        ticking=false;
       }
 
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
+      window.addEventListener('scroll',() => {
+        if(!ticking) {
           window.requestAnimationFrame(onScroll);
-          ticking = true;
+          ticking=true;
         }
-      }, { passive: true });
+      },{passive: true});
 
       onScroll();
     }
@@ -1208,78 +1201,78 @@
     }
 
     // Khởi tạo các sự kiện giao diện
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded',() => {
       loadState();
       checkNoticeVisibility();
       initScrollInteractions();
 
       // Cập nhật công tắc AI
-      const toggleAI = document.getElementById('toggleAI');
-      toggleAI.checked = appState.useAI;
-      document.getElementById('labelAI').innerText = appState.useAI ? 'Có dùng AI' : 'Không dùng AI';
-      toggleAI.addEventListener('change', (e) => {
-        appState.useAI = e.target.checked;
-        document.getElementById('labelAI').innerText = appState.useAI ? 'Có dùng AI' : 'Không dùng AI';
+      const toggleAI=document.getElementById('toggleAI');
+      toggleAI.checked=appState.useAI;
+      document.getElementById('labelAI').innerText=appState.useAI? 'Có dùng AI':'Không dùng AI';
+      toggleAI.addEventListener('change',(e) => {
+        appState.useAI=e.target.checked;
+        document.getElementById('labelAI').innerText=appState.useAI? 'Có dùng AI':'Không dùng AI';
         saveState();
         renderCards();
       });
 
       // Cập nhật nút Database
-      const btnDbSql = document.getElementById('btnDbSql');
-      const btnDbMongo = document.getElementById('btnDbMongo');
+      const btnDbSql=document.getElementById('btnDbSql');
+      const btnDbMongo=document.getElementById('btnDbMongo');
       function applyDbStyle() {
-        if (appState.dbType === 'sql') {
-          btnDbSql.className = 'px-3 py-1 text-xs font-medium rounded-s-lg border border-indigo-300 bg-indigo-50 text-indigo-700';
-          btnDbMongo.className = 'px-3 py-1 text-xs font-medium rounded-e-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
+        if(appState.dbType==='sql') {
+          btnDbSql.className='px-3 py-1 text-xs font-medium rounded-s-lg border border-indigo-300 bg-indigo-50 text-indigo-700';
+          btnDbMongo.className='px-3 py-1 text-xs font-medium rounded-e-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
         } else {
-          btnDbMongo.className = 'px-3 py-1 text-xs font-medium rounded-e-lg border border-indigo-300 bg-indigo-50 text-indigo-700';
-          btnDbSql.className = 'px-3 py-1 text-xs font-medium rounded-s-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
+          btnDbMongo.className='px-3 py-1 text-xs font-medium rounded-e-lg border border-indigo-300 bg-indigo-50 text-indigo-700';
+          btnDbSql.className='px-3 py-1 text-xs font-medium rounded-s-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50';
         }
       }
       applyDbStyle();
-      btnDbSql.onclick = () => { appState.dbType = 'sql'; applyDbStyle(); saveState(); };
-      btnDbMongo.onclick = () => { appState.dbType = 'mongo'; applyDbStyle(); saveState(); };
+      btnDbSql.onclick=() => {appState.dbType='sql'; applyDbStyle(); saveState();};
+      btnDbMongo.onclick=() => {appState.dbType='mongo'; applyDbStyle(); saveState();};
 
       // Bộ lọc tiến độ - Đồng bộ lọc cả thẻ và cây thư mục
       document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click',(e) => {
           document.querySelectorAll('.filter-btn').forEach(b => {
-            b.className = 'filter-btn px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200';
+            b.className='filter-btn px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200';
           });
-          e.target.className = 'filter-btn px-3 py-1 text-xs font-semibold rounded-full bg-indigo-600 text-white';
-          appState.currentFilter = e.target.getAttribute('data-filter');
+          e.target.className='filter-btn px-3 py-1 text-xs font-semibold rounded-full bg-indigo-600 text-white';
+          appState.currentFilter=e.target.getAttribute('data-filter');
           renderCards();
         });
       });
 
       // Xuất file JSON sao lưu
-      document.getElementById('btnExport').addEventListener('click', () => {
-        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(appState, null, 2));
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute('href', dataStr);
-        downloadAnchor.setAttribute('download', `tien-do-do-an-backup-${new Date().toISOString().slice(0, 10)}.json`);
+      document.getElementById('btnExport').addEventListener('click',() => {
+        const dataStr='data:text/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(appState,null,2));
+        const downloadAnchor=document.createElement('a');
+        downloadAnchor.setAttribute('href',dataStr);
+        downloadAnchor.setAttribute('download',`tien-do-do-an-backup-${new Date().toISOString().slice(0,10)}.json`);
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
       });
 
       // Nhập file JSON khôi phục
-      const importInput = document.getElementById('importFile');
-      importInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (event) => {
+      const importInput=document.getElementById('importFile');
+      importInput.addEventListener('change',(e) => {
+        const file=e.target.files[0];
+        if(!file) return;
+        const reader=new FileReader();
+        reader.onload=(event) => {
           try {
-            const importedData = JSON.parse(event.target.result);
-            appState = { ...appState, ...importedData };
+            const importedData=JSON.parse(event.target.result);
+            appState={...appState,...importedData};
             saveState();
-            toggleAI.checked = appState.useAI;
-            document.getElementById('labelAI').innerText = appState.useAI ? 'Có dùng AI' : 'Không dùng AI';
+            toggleAI.checked=appState.useAI;
+            document.getElementById('labelAI').innerText=appState.useAI? 'Có dùng AI':'Không dùng AI';
             applyDbStyle();
             renderCards();
             alert('Khôi phục dữ liệu tiến độ thành công!');
-          } catch (err) {
+          } catch(err) {
             alert('Tệp sao lưu không đúng định dạng JSON!');
           }
         };
@@ -1287,9 +1280,9 @@
       });
 
       // Nút đặt lại trạng thái
-      document.getElementById('btnReset').addEventListener('click', () => {
-        if (confirm('Bạn có chắc muốn xóa toàn bộ đánh dấu tiến độ để bắt đầu lại không?')) {
-          appState.checkedItems = {};
+      document.getElementById('btnReset').addEventListener('click',() => {
+        if(confirm('Bạn có chắc muốn xóa toàn bộ đánh dấu tiến độ để bắt đầu lại không?')) {
+          appState.checkedItems={};
           saveState();
           renderCards();
         }
